@@ -27,7 +27,7 @@ public class ImgService {
 //        List<Img> geimg = imgDao.geimg();
 //        System.out.println(geimg.get(0).getSrc());
         List geimg = getData();
-        rst.setCode("200");
+        rst.setCode(200);
         rst.setData(geimg);
         return rst;
     }

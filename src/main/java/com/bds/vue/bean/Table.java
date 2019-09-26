@@ -8,7 +8,7 @@ import lombok.Data;
  * TODO:tb_table_headerPOJO
  */
 @Data
-public class tb_table_header {
+public class Table {
     private Integer id;
     private String title;
     private String key;

@@ -5,7 +5,9 @@ import com.bds.vue.service.TableService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -15,15 +17,16 @@ import java.util.Map;
  * TODO:table
  */
 @Controller
-@RequestMapping("/header")
+@RequestMapping("header/")
 public class TableController {
     @Autowired
     private TableService service;
 
-    @RequestMapping(value = "/toData",method = RequestMethod.POST)
+    @RequestMapping(value = "toData",method = RequestMethod.GET)
     @ResponseBody
-    public Result toData(@RequestParam Map info){
-        System.out.println("#########"+info.get("info"));
+    public Result toData(String info){
+        System.out.println(info);
+
         return service.getData(info);
     }
 

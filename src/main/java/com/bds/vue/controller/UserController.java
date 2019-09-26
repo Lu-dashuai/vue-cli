@@ -14,12 +14,12 @@ import java.util.Map;
  * TODO:员工控制层
  */
 @Controller
-@RequestMapping("user/")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("toData")
+    @RequestMapping("/toData")
     @ResponseBody
     public Map toData(int page_num){
         return userService.getAll(page_num);

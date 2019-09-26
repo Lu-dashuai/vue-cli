@@ -17,12 +17,12 @@ import java.util.Map;
  * TODO:table
  */
 @Controller
-@RequestMapping("header/")
+@RequestMapping("/header")
 public class TableController {
     @Autowired
     private TableService service;
 
-    @RequestMapping(value = "toData",method = RequestMethod.GET)
+    @RequestMapping(value = "/toData",method = RequestMethod.GET)
     @ResponseBody
     public Result toData(String info){
         System.out.println(info);

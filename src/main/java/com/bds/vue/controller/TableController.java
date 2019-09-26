@@ -24,8 +24,9 @@ public class TableController {
 
     @RequestMapping(value = "toData",method = RequestMethod.GET)
     @ResponseBody
-    public Result toData(Map info){
-        System.out.println("#########"+info.get("info"));
+    public Result toData(String info){
+        System.out.println(info);
+
         return service.getData(info);
     }
 

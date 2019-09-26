@@ -1,5 +1,6 @@
 package com.bds.vue.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.Map;
  */
 @Component
 public interface TableDao {
-    List getAll(Map info);
+    List getAll(String info);
 
-    Integer getCount(Map info);
+    Integer getCount(@Param("info")String info);
 
 }

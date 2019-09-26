@@ -22,6 +22,7 @@ public class UserController {
     @RequestMapping("/toData")
     @ResponseBody
     public Map toData(int page_num){
+//        System.out.println(page_num);
         return userService.getAll(page_num);
     }
 

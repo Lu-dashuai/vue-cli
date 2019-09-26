@@ -10,4 +10,21 @@
     <select id="getCount" resultType="Int">
         select count(0) from user
     </select>
+    
+    <select id="queryInfo" parameterType="Map" resultType="Map">
+        SELECT u.*,r.role_name
+        FROM `user` u LEFT JOIN tb_role r ON u.role_id = r.id
+        <where>
+            1=1
+            <if test="user_name!=null and user_name!=''">
+                AND user_name LIKE CONCAT('%',#{user_name},'%')
+            </if>
+            <if test="user_no!=null and user_no!=''">
+                AND user_no = #{user_no}
+            </if>
+            <if test="card_id!=null and card_id!=''">
+                AND card_id = #{card_id}
+            </if>
+        </where>
+    </select>
 </mapper>

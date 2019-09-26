@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 public class User {
     private Integer id;
-    private Integer user_no;
+    private String user_no;
     private String user_name;
     private String password;
     private String sex;

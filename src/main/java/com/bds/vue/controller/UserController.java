@@ -4,9 +4,12 @@ import com.bds.vue.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * AUTHOR:Kevin Ding
@@ -19,10 +22,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("toData")
+    @RequestMapping(value = "/getData",method = POST, produces = "application/json")
     @ResponseBody
-    public Map toData(int page_num){
-        return userService.getAll(page_num);
+    public Map toData(@RequestParam Map param){
+        return userService.getAll(param);
     }
 
 }

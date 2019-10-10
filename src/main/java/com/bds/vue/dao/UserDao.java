@@ -18,5 +18,31 @@ public interface UserDao {
 
     Integer getCount();
 
+    /**
+     * 获取员工表数据，含有查询分页
+     * @param info
+     * @return
+     */
     List queryInfo(Map info);
+
+    /**
+     * 添加员工
+     * @param user
+     * @return
+     */
+    int addEmp(User user);
+
+    /**
+     * 修改员工系信息
+     * @param user
+     * @return
+     */
+    int updateEmp(User user);
+
+    /**
+     * 删除员工
+     * @param id
+     * @return
+     */
+    int delEmp(int id);
 }

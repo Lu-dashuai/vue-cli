@@ -42,4 +42,16 @@ public class UserService {
 
     }
 
+    public int addEmp(User user){
+        return  userDao.addEmp(user);
+    }
+
+    public int updateEmp(User user){
+        return userDao.updateEmp(user);
+    }
+
+    public int delEmp(int id){
+        return userDao.delEmp(id);
+    }
+
 }

@@ -27,4 +27,19 @@
             </if>
         </where>
     </select>
+
+    <insert id="addEmp" parameterType="user">
+        INSERT INTO user ( user_no, user_name, password, sex, card_id, email, tel, hobby, role_id, create_time,info) VALUES
+        ( #{user_no}, #{user_name}, #{password}, #{sex}, #{card_id}, #{email}, #{tel}, #{hobby}, #{role_id},NOW(),#{info})
+    </insert>
+
+    <update id="updateEmp" parameterType="user">
+        update  user set user_no = #{user_no}, user_name=#{user_name}, password=#{password}, sex=#{sex}, card_id=#{card_id},
+         email=#{email}, tel=#{tel}, hobby=#{hobby}, role_id=#{role_id}, info=#{info}
+        where id =#{id}
+    </update>
+
+    <delete id="delEmp" parameterType="int">
+        delete from user where  id = #{id}
+    </delete>
 </mapper>

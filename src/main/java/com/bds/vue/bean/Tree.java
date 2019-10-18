@@ -13,10 +13,10 @@ import java.util.List;
 @Data
 public class Tree {
     private Integer id;
-    private String name;
+    private String title;
     private String status;
     private String iconcls;
     private String url;
     private Integer parentid;
-    private List<Power> childs;
+    private List<Power> children;
 }

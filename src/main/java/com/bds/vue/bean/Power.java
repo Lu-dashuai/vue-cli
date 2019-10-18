@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class Power {
     private Integer id;
-    private String name;
+    private String title;
     private String status;
     private String iconcls;
     private String url;

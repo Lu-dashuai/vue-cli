@@ -1,5 +1,6 @@
 package com.bds.vue.dao;
 
+import com.bds.vue.bean.Result;
 import com.bds.vue.bean.User;
 import org.springframework.stereotype.Component;
 
@@ -19,4 +20,10 @@ public interface UserDao {
     Integer getCount();
 
     List queryInfo(Map info);
+
+    void addUser(Map map);
+
+    void updateUser(Map map);
+
+    void deleteUser(List<Integer> list);
 }

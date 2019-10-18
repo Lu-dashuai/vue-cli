@@ -3,7 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bds.vue.dao.PowerDao">
 <!--没有条件的查询权限菜单树-->
-<select id="getPower" resultType="power">
+    <select id="getPower" resultType="power">
         select * from tb_power
     </select>
+    <select id="getPowerByRoleId" resultType="power">
+        select p.*
+        from tb_power p
+        left join tb_role_power t
+            on p.id = t.power_id
+        where t.role_id = #{param1}
+    </select>
+
+
+    <insert id="insertPowerId" parameterType="map">
+        insert into tb_role_power (role_id,power_id) values (#{role_id},#{power_id})
+    </insert>
 </mapper>

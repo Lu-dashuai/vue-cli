@@ -19,7 +19,6 @@ public class ImgController {
     @Autowired
     private ImgService imgService;
 
-    @ResponseBody
     @RequestMapping("/getImg")
     public Object getImg(){
         Result rst = imgService.getImg();

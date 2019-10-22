@@ -18,4 +18,7 @@
     <insert id="insertPowerId" parameterType="map">
         insert into tb_role_power (role_id,power_id) values (#{role_id},#{power_id})
     </insert>
+    <delete id="deletePowerByRole">
+        delete from tb_role_power where role_id = #{param1}
+    </delete>
 </mapper>

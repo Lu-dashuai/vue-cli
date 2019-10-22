@@ -1,6 +1,5 @@
 package com.bds.vue.dao;
 
-import com.bds.vue.bean.Result;
 import com.bds.vue.bean.User;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,7 @@ import java.util.Map;
  * TODO:员工信息接口
  */
 @Component
-public interface UserDao {
+public interface OrderDao {
 
     List<User> getAll(String user_no);
 
@@ -21,9 +20,9 @@ public interface UserDao {
 
     List queryInfo(Map info);
 
-    void addUser(Map map);
-
-    void updateUser(Map map);
-
-    void deleteUser(List<Integer> list);
+    void addOrder(Map map);
+//
+    void updateOrder(Map map);
+//
+    void deleteOrder(List<Integer> list);
 }

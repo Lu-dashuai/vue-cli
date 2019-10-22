@@ -23,4 +23,6 @@ public interface PowerDao {
      */
     List<Power> getPower();
     void insertPowerId(Map param);
+
+    void deletePowerByRole(Integer role_id);
 }

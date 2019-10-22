@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bds.vue.dao.UserDao">
     <select id="getAll" resultType="User">
-        select * from user
+        select * from user where user_no = #{param1}
     </select>
 
     <select id="getCount" resultType="Int">

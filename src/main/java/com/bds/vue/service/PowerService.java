@@ -78,6 +78,7 @@ public class PowerService {
         Result res = new Result();
         try {
             Integer role_id = Integer.valueOf(map.get("role_id") + "");
+            powerDao.deletePowerByRole(role_id);
             ArrayList anIf = (ArrayList)map.get("_if");
 //            List power_ids = new ArrayList();
             for (Object tree_obj: anIf){
@@ -86,25 +87,27 @@ public class PowerService {
                 Map param = new HashMap();
                 param.put("power_id",id);
                 param.put("role_id",role_id);
-                powerDao.insertPowerId(param);
-//                power_ids.add(id);
-//                ArrayList children = (ArrayList)linkedHashMap.get("children");
-//                if (children!=null&&children.size()>0){
-//                    for (Object power_obj : children){
-//                        LinkedHashMap power = (LinkedHashMap)power_obj;
-//                        String id1 = power.get("id")+"";
-//                        power_ids.add(id1);
-//                    }
-//                }
+                try {
+                    powerDao.insertPowerId(param);
+                } catch (Exception e){
+
+                }
             }
-//            System.out.println("需要添加的power_id:"+power_ids);
-//            for (int i=0;i<power_ids.size();i++){
-//                Integer id = Integer.valueOf(power_ids.get(i) + "");
-//
-//
-//            }
+            for (Object tree_obj: anIf){
+                LinkedHashMap linkedHashMap = (LinkedHashMap)tree_obj;
+                Integer id = Integer.valueOf(linkedHashMap.get("parentid")+"");
+                if (id!=0){
+                    Map param = new HashMap();
+                    param.put("power_id",id);
+                    param.put("role_id",role_id);
+                    try {
+                        powerDao.insertPowerId(param);
+                    } catch (Exception e){
 
+                    }
 
+                }
+            }
             res.setCode(200);
         } catch (Exception e){
         }

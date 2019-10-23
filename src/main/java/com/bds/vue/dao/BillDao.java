@@ -25,4 +25,5 @@ public interface BillDao {
 //    void updateOrder(Map map);
 ////
 //    void deleteOrder(List<Integer> list);
+    void deleteBillByOrderNo(Long order_no);
 }

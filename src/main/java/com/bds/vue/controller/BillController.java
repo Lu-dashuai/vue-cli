@@ -49,7 +49,7 @@ public class BillController {
      */
     @RequestMapping(value = "/addBill",method = POST, produces = "application/json")
     public Object addOrder(@RequestBody Map map){
-        map.put("create_time",new Date());
+//        map.put("create_time",new Date());
         Result result = billService.addBill(map);
         return result;
     }
@@ -80,6 +80,8 @@ public class BillController {
 //        return result;
 //
 //    }
+
+
 
 
 /**

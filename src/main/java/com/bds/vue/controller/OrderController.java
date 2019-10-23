@@ -81,8 +81,8 @@ public class OrderController {
         System.out.println("---------"+ids);
         Result result = orderService.deleteOrder(ids);
         return result;
-
     }
+
 
 
 /**

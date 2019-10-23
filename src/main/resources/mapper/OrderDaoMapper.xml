@@ -34,5 +34,10 @@
             info=#{info}
         where id = #{id}
     </update>
+    <update id="updateOrderStatus">
+        update tb_order set
+            order_status=#{param1}
+        where order_no = #{param2}
+    </update>
 
 </mapper>

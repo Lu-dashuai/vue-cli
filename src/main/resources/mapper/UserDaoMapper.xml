@@ -6,6 +6,12 @@
         select * from user where user_no = #{param1}
     </select>
 
+    <select id="getUsernameByid" resultType="map">
+        select user_name,email from user where id in
+        <foreach collection="list"  item="item" open="(" separator="," close=")"  >#{item}
+        </foreach>
+    </select>
+
     <select id="getCount" resultType="Int">
         select count(0) from user
     </select>
@@ -23,6 +29,9 @@
             </if>
             <if test="card_id!=null and card_id!=''">
                 AND card_id = #{card_id}
+            </if>
+            <if test="id!=null and id!=''">
+                AND id = #{id}
             </if>
         </where>
         order by create_time desc

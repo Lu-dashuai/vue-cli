@@ -10,3 +10,6 @@ fatal: Exiting because of unfinished merge.
 ```$xslt
 git reset --hard origin/master
 ```
+# 接口编写
+1. 通过订单号删除所有账单
+delete from tb_bill where order_no = #{order_no}

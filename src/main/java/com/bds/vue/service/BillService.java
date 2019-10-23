@@ -1,15 +1,14 @@
 package com.bds.vue.service;
 
 import com.bds.vue.bean.Result;
-import com.bds.vue.bean.Status;
 import com.bds.vue.dao.BillDao;
 import com.bds.vue.dao.OrderDao;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.bds.vue.dao.UserDao;
+import com.bds.vue.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -21,75 +20,61 @@ import java.util.*;
 public class BillService {
     @Autowired
     private BillDao billDao;
-
-//    public Map getAll(Map param){
-//
-//        Map<String,Object> info = new HashMap();
-//        int page_num = Integer.parseInt(param.get("page_num").toString()) ;
-//        int page_size = Integer.parseInt(param.get("page_size").toString());
-//        List<Map> order = new ArrayList<>();
-//        PageHelper.startPage(page_num,page_size);
-//        order = orderDao.queryInfo(param);
-//        for (Map map : order){
-//            String order_status = map.get("order_status") + "";
-//            order_status = Status.getDescByValue(order_status);
-//            map.put("order_status",order_status);
-//        }
-//        System.out.println(order);
-//        PageInfo   page = new PageInfo (order);
-//        PageHelper.startPage(page_num,page_size);
-//
-//        info.put("data",order);
-//        info.put("total_count",page.getTotal());//总记录数
-//        info.put("page_count",page.getPages());//总页数
-//        info.put("page_num",page.getPageNum());//当前页数
-//        info.put("page_size",page.getPageSize());//当前页大小
-//        return info;
-//
-//    }
+    @Autowired
+    private OrderDao orderDao;
+    @Autowired
+    private UserDao userDao;
 
     public Result addBill(Map map) {
         Result res = new Result();
-        //这里的业务比较复杂 我要理理
+        try {
+            //获取参数
+            Map order = (Map)map.get("order");
+            List joiner = (List)map.get("joiner");
+            System.out.println("order:"+order);
+            String order_n = order.get("order_no")+"";
+            long order_no = Long.parseLong(order_n);
+            String promoter_id = order.get("promoter_id")+"";
+            String order_moneys = order.get("order_money")+"";
+            BigDecimal money = new BigDecimal(order_moneys);
+            BigDecimal size = new BigDecimal(joiner.size());
+            BigDecimal bill_money = money.divide(size, 2, BigDecimal.ROUND_HALF_UP);
+            String order_status = order.get("order_status")+"";
+            String info = order.get("info")+"";
+            String promoter_name = order.get("user_name")+"";
+            ///1.先删除该订单下的所有账单
+            billDao.deleteBillByOrderNo(order_no);
+            List<Map> usernameByid = userDao.getUsernameByid(joiner);
+//            System.out.println("username:"+usernameByid);
+            new EmailUtil(order,joiner,usernameByid,bill_money+"");
+
+            //2.组织对象作为参数插入
+            if (joiner!=null&&joiner.size()>0){
+                for (int i=0;i<joiner.size();i++){
+                    String joiner_id = joiner.get(i)+"";
+                    Map param = new HashMap();
+                    String bill_id = order_no + joiner_id;
+                    param.put("bill_id",bill_id);
+                    param.put("order_no",order_no);
+                    param.put("promoter_id",promoter_id);
+                    param.put("joiner_id",joiner_id);
+                    param.put("bill_money",bill_money);
+                    param.put("bill_status",2);//更改账单状态为立项
+                    param.put("info",info);
+                    param.put("create_time",new Date());
+                    param.put("order_money",money);
+                    //执行插入
+                    billDao.addBill(param);
+                }
+                //3 更改订单状态为立项
+                orderDao.updateOrderStatus(2,order_no);
+            }
+            res.setCode(200);
+        }catch (Exception e){
+            e.printStackTrace();
+            res.setCode(500);
+        }
         return res;
     }
-//    public Result updateOrder(Map map) {
-//        Result res = new Result();
-//        try {
-//            String date = map.get("create_time")+"";
-//            date = date.replace("Z", " UTC");//注意是空格+UTC
-//            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");//注意格式化的表达式
-//            Date d = format.parse(date);
-//            map.put("create_time",d);
-//            String order_status = map.get("order_status") + "";
-//            Integer status = Status.getValueByDesc(order_status);
-//            map.put("order_status",status);
-//            orderDao.updateOrder(map);
-//            res.setCode(200);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//            res.setCode(201);
-//            System.out.println("可能是违反唯一约束。。。。");
-//        }
-//        return res;
-//    }
-//
-//    public Result deleteOrder(String ids) {
-//        Result res = new Result();
-//        List<Integer> list = new ArrayList<Integer>();
-//        try {
-//            String[] ids_arr = ids.split(",");
-//            for (int i=0;i<ids_arr.length;i++){
-//                int id = Integer.valueOf(ids_arr[i]);
-//                list.add(id);
-//            }
-//            orderDao.deleteOrder(list);
-//            res.setCode(200);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            res.setCode(500);
-//        }
-//        return res;
-//    }
 
 }

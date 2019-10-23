@@ -1,38 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bds.vue.dao.OrderDao">
-
-
-    <!--<select id="getCount" resultType="Int">-->
-        <!--select count(0) from tb_order-->
-    <!--</select>-->
-    <!---->
-    <!--<select id="queryInfo"  resultType="Map">-->
-        <!--select o.*,u.user_name as user_name,u.id as promoter_id-->
-        <!--from tb_order o-->
-        <!--join user u-->
-        <!--on promoter_id = u.id-->
-    <!--</select>-->
-    <!--<delete id="deleteOrder"  parameterType = "list">-->
-        <!--delete from tb_order where id in-->
-        <!--<foreach collection="list"  item="item" open="(" separator="," close=")"  >#{item}-->
-        <!--</foreach>-->
-    <!--</delete>-->
+<mapper namespace="com.bds.vue.dao.BillDao">
     <insert id="addBill" parameterType="map">
       insert into tb_bill
-      (bill_id,order_no,promoter_id,joiner_id,bill_money,bill_status,info)
+      (bill_id,order_no,promoter_id,joiner_id,bill_money,bill_status,info,create_time,order_money)
       values
-      (#{bill_id},#{order_no},#{promoter_id},#{joiner_id},#{bill_money},#{bill_status},#{info})
+      (#{bill_id},#{order_no},#{promoter_id},#{joiner_id},#{bill_money},#{bill_status},#{info},#{create_time},#{order_money})
     </insert>
-    <!--<update id="updateOrder" parameterType="map">-->
-        <!--update tb_order set-->
-            <!--order_name=#{order_name},-->
-            <!--create_time=#{create_time},-->
-            <!--order_status=#{order_status},-->
-            <!--order_money=#{order_money},-->
-            <!--info=#{info}-->
-        <!--where id = #{id}-->
-    <!--</update>-->
+
+    <delete id="deleteBillByOrderNo">
+        delete from tb_bill where order_no = #{param1}
+    </delete>
 
 </mapper>

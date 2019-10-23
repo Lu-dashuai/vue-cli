@@ -26,4 +26,6 @@ public interface UserDao {
     void updateUser(Map map);
 
     void deleteUser(List<Integer> list);
+
+    List<Map> getUsernameByid(List list);
 }

@@ -25,4 +25,6 @@ public interface OrderDao {
     void updateOrder(Map map);
 //
     void deleteOrder(List<Integer> list);
+
+    void updateOrderStatus(int status,Long order_no);
 }

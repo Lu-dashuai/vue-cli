@@ -25,4 +25,24 @@ public interface PowerDao {
     void insertPowerId(Map param);
 
     void deletePowerByRole(Integer role_id);
+
+    /**
+     * 给菜单表添加
+     * @param map
+     */
+    void addPowerTable(Map map);
+
+    /**
+     * 删除菜单
+     * @param id
+     */
+    void delPower(Integer id);
+
+    /**
+     * 删除中间表通过power_id
+     * @param id
+     */
+    void delRolePower(Integer id);
+
+    List<Power> selectPowerByid(Integer id);
 }

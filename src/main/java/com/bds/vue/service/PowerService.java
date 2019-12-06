@@ -114,4 +114,41 @@ public class PowerService {
         return res;
 
     }
+
+    /**
+     * 给菜单表添加菜单
+     * @param map
+     * @return
+     */
+    public void addPowerTable(Map map) {
+        boolean status = Boolean.valueOf(map.get("switch").toString());
+        if (status){
+            map.put("status","open");
+        }else {
+            map.put("status","close");
+        }
+        powerDao.addPowerTable(map);
+    }
+
+    /**
+     * 删除节点
+     * @param id
+     */
+    public void delPower(Integer id) {
+        //需要删除菜单表的 id 和 parentid 都为id 的数据
+
+        //需要删除中间表的冗余数据【
+        // 1. power_id 为id的
+        // 2. 如果power_id为父id则要删除power_id为父id底下id的数据
+        // 】
+        List<Power> powers = powerDao.selectPowerByid(id);
+        if (powers.size()!=0){
+            for (Power power:powers){
+                Integer id1 = power.getId();
+                powerDao.delRolePower(id1);
+            }
+        }
+        powerDao.delRolePower(id);
+        powerDao.delPower(id);
+    }
 }

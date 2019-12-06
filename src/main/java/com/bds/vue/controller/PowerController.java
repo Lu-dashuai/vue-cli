@@ -49,6 +49,41 @@ public class PowerController {
     }
 
     /**
+     * 给菜单表添加菜单
+     * @return
+     */
+    @RequestMapping(value = "/addPowerTable",method = RequestMethod.POST)
+    public Object addPowerTable(@RequestBody Map map){
+        Result res = new Result();
+        try {
+            powerService.addPowerTable(map);
+            res.setCode(200);
+        } catch (Exception e){
+            e.printStackTrace();
+            res.setCode(500);
+        }
+
+        return res;
+    }
+    /**
+     * 给菜单表删除
+     * @return
+     */
+    @RequestMapping(value = "/delPower",method = RequestMethod.GET)
+    public Object delPower(Integer power_id){
+        Result res = new Result();
+        try {
+            powerService.delPower(power_id);
+            res.setCode(200);
+        } catch (Exception e){
+            e.printStackTrace();
+            res.setCode(500);
+        }
+
+        return res;
+    }
+
+    /**
      * 获取role_id
      * @param
      * @return

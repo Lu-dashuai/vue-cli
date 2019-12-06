@@ -6,6 +6,9 @@
     <select id="getPower" resultType="power">
         select * from tb_power
     </select>
+    <select id="selectPowerByid" resultType="power">
+        select * from tb_power where parentid = #{param1}
+    </select>
     <select id="getPowerByRoleId" resultType="power">
         select p.*
         from tb_power p
@@ -20,5 +23,17 @@
     </insert>
     <delete id="deletePowerByRole">
         delete from tb_role_power where role_id = #{param1}
+    </delete>
+    <insert id="addPowerTable" parameterType="map">
+        insert into tb_power
+        (title,status,iconcls,url,parentid)
+        values
+        (#{title},#{status},#{iconcls},#{url},#{parentid})
+    </insert>
+    <delete id="delPower">
+        delete from tb_power where id = #{param1} or parentid = #{param1}
+    </delete>
+    <delete id="delRolePower">
+        delete from tb_role_power where power_id = #{param1}
     </delete>
 </mapper>
